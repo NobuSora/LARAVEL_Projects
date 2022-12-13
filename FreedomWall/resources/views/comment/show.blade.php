@@ -20,7 +20,7 @@
                     <p>{{$wall->comment}}</p>
                 </div>
                     <div class="DateClass">
-                        {{$wall->created_at->format('M d, Y | h:i A')}}
+                        {{$wall->created_at->diffForHumans()}}
                     </div>
             </div>
             <input type="submit" value="Delete" class="btn" onclick="return confirm('Confirm Delete?')">&nbsp;<a href="/{{$wall->id}}/edit" class="btn">Edit</a>
