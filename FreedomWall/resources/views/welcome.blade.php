@@ -45,7 +45,7 @@
                             <p>{{$wall->comment}}</p>
                         </div>
                             <div class="DateClass">
-                                {{$wall->updated_at->format('M d, Y | h:i A')}}
+                                {{$wall->updated_at->diffForHumans()}}
                             </div>
                     </div>
                     </a>
