@@ -25,5 +25,5 @@
             </div>
             <input type="submit" value="Delete" class="btn" onclick="return confirm('Confirm Delete?')">&nbsp;<a href="/{{$wall->id}}/edit" class="btn">Edit</a>
         </div>
-    </div>
+    </div> 
 </div>
