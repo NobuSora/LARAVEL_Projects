@@ -29,8 +29,6 @@ class WallController extends Controller
     }
     public function index()
     {
-        // $wall = Wall::latest()->get();
-        // $userData['data'] = $wall;
         return view('welcome');
     }
 
@@ -38,11 +36,8 @@ class WallController extends Controller
 
     public function fetchcomment()
     {
-        $wall = Wall::latest()->get();
-        $userData['data'] = $wall;
-        return response()->json($userData);
-        // return view('welcome', ['comments' => json_encode($userData)]);
-        // return view('welcome');
+        $comments = Wall::latest()->get();
+        return compact('comments');
     }   
 
     public function edit($id)
@@ -61,7 +56,6 @@ class WallController extends Controller
         $wall->username = request('username');
         $wall->comment = request('comment');
         $wall->save();
-
         return redirect('/' . $wall->$id);
 
     }

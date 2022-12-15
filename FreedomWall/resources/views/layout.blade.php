@@ -11,6 +11,7 @@
     <!-- font icons -->
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
     <!-- Bootstrap + JohnDoe main styles -->
+    
 	<link rel="stylesheet" href="/assets/css/johndoe.css">
     <script
   src="https://code.jquery.com/jquery-3.6.1.js"
@@ -31,6 +32,8 @@
     	<!-- core  -->
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+    
+    
 
     <!-- bootstrap 3 affix -->
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
@@ -43,10 +46,7 @@
 
     <!-- JohnDoe js -->
     <script src="assets/js/johndoe.js"></script>
-
-    <script>
-      
-    </script>
+    <script src="assets/js/moment.js"></script>
 
     @yield('addScript')
 
