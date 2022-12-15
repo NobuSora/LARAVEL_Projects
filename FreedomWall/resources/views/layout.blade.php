@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>FreedomWall</title>
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <meta name="description" content="">
-    <meta name="author" content="Devcrud">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title></title>
-    <!-- font icons -->
-    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
-    <!-- Bootstrap + JohnDoe main styles -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title></title>
+  <!-- font icons -->
+  <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
+  <!-- Bootstrap + JohnDoe main styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<link rel="stylesheet" href="/assets/css/johndoe.css">
+  
     <script
   src="https://code.jquery.com/jquery-3.6.1.js"
   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
@@ -47,7 +46,7 @@
     <!-- JohnDoe js -->
     <script src="assets/js/johndoe.js"></script>
     <script src="assets/js/moment.js"></script>
-
+    @yield('deleteScript')
     @yield('addScript')
 
 </body>

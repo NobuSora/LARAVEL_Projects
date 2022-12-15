@@ -24,7 +24,7 @@
                             <p class="help is-danger">{{ $errors->first('comment')}}</p>
                             @enderror
                     </div>
-                    <button type="button" value="Post" id="Add" onclick="return confirm('Confirm Post?')">Add</button>
+                    <button type="button" value="Post" id="addBtn" onclick="return confirm('Confirm Post?')">Add</button>
                 </div> 
             </div>
         </div>
@@ -32,42 +32,24 @@
 
 
     <div class="container" id="Container">
-
-        {{-- @foreach ($wall as $wall ) --}}
-                {{-- <div class="row">
-                    <div class="col-md-6 col-lg-4">
-                        <a href="/
-                        IDTest
-                        ">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="mt-2">
-                                    <h4>
-                                        UsernameTest
-                                    </h4>
-                                    <span class="line"></span>  
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p>
-                                    CommentTest
-                                </p>
-                            </div>
-                                <div class="DateClass">
-                                    DateTest
-                                </div>
-                        </div>
-                        </a>
-                    </div>
-                </div> --}}
-        {{-- @endforeach --}}
-
-        
+    
     </div>
+</div>
+{{-- @section('deleteScript')
+<script>
+    $(document).ready(function () {
+        console.log('Second Load Ready');
+        
+    });
+</script>
+@endsection --}}
+
 
 @section('addScript')
+
     <script>
         $(document).ready(function () {
+            console.log('First Load Ready');
 
                             
             
@@ -100,8 +82,9 @@
                                             <p>'+comment+'</p>\
                                         </div>\
                                             <div class="DateClass" id="dateID'+value.id+'">'+date+'</div>\
+                                        </a>\
+                                            <button value="'+value.id+'" id="deleteBtn" class="btn">Delete</a>\
                                     </div>\
-                                    </a>\
                                 </div><p id="id" hidden>'+value.id+'</p>\
                             </div>';
                           
@@ -126,57 +109,76 @@
                         comment:comment
                     },
                     success:function(response){
-                        // console.log($('#Container').children().first().val());
-                        // var date = moment([response['wall'].updated_at]).fromNow();
-                        var wall = response['wall'];
-                        var date = moment(wall.updated_at).fromNow();
-                        var insertData ='\
-                            <div class="row">\
-                                <div class="col-md-6 col-lg-4">\
-                                <a href="/'+wall.id+'">\
-                                    <div class="card">\
-                                        <div class="card-header">\
-                                            <div class="mt-2">\
-                                                <h4>'+wall.username+'</h4>\
-                                                <span class="line"></span>\
+                            // console.log($('#Container').children().first().val());
+                            // var date = moment([response['wall'].updated_at]).fromNow();
+                            var wall = response['wall'];
+                            var date = moment(wall.updated_at).fromNow();
+                            var insertData ='\
+                                <div class="row">\
+                                    <div class="col-md-6 col-lg-4">\
+                                    <a href="/'+wall.id+'">\
+                                        <div class="card">\
+                                            <div class="card-header">\
+                                                <div class="mt-2">\
+                                                    <h4>'+wall.username+'</h4>\
+                                                    <span class="line"></span>\
+                                                </div>\
                                             </div>\
+                                            <div class="card-body">\
+                                                <p>'+wall.comment+'</p>\
+                                            </div>\
+                                                <div class="DateClass">'+date+'</div>\
                                         </div>\
-                                        <div class="card-body">\
-                                            <p>'+wall.comment+'</p>\
-                                        </div>\
-                                            <div class="DateClass">'+date+'</div>\
-                                    </div>\
-                                    </a>\
-                                </div><p id="lastcount"></p>\
-                            </div>'
-                        $("#Container").prepend(insertData);
+                                        </a>\
+                                    </div><p id="lastcount"></p>\
+                                </div>'
+                            $("#Container").prepend(insertData);
 
-                        // console.log(response['wall'].id);
-                    },
-                    error: function(response) {
-                        alert('Error Addpost'+response);
-                    },
+
+                            // console.log(response['wall'].id);
+                        },
+                        error: function(response) {
+                            alert('Error Addpost'+response);
+                        },
                     });
+                },
+
+                delete : function(){
+
+                var delID = this.val();
+                // console.log('Hello');
+                // $.ajax({
+                // type: "DELETE",
+                // url: "/",
+                // data: {id: "your_element_id"},
+                // success: function(result){
+                //     // Do something after the element is deleted
+                // },
+                // error: function(response) {
+                //     alert('Error DeletePost'+response);
+                // },
+                // });
                 }
 
                 
             });
             
             $.getcomments();
-            $("#Add").click(function (e) {
-                $.add();
 
+            
+            $("#addBtn").click(function () {
+                $.add();
                 $('#username').val('');
                 $('#comment').val('');
-
-                
-                // console.log(name, comment);
-            
             });
+
+            $('#deleteBtn').click(function (e) { 
+                e.preventDefault();
+                console.log("Works");
+            });
+
 
         });
     </script>
-</div>
-
 @endsection
 
