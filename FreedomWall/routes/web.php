@@ -11,14 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    $wall = App\Wall::latest('updated_at')->get();
+// Route::get('/', function () {
+//     // $wall = App\Wall::latest('updated_at')->get();
 
-    return view('welcome' , [
-        'wall' => $wall
-    ]);
-});
+//     return view('welcome' , [
+//         // 'wall' => $wall
+//     ]);
+// });
+Route::get('/','WallController@index');
 
+Route::get('/getComments','WallController@fetchcomment');
+// Route::get('/getComment','WallController@getComment');
 Route::post('/store', 'WallController@store');
 Route::get('/{comment}/edit', 'WallController@edit');
 Route::delete('/{comment}/delete', 'WallController@destroy');

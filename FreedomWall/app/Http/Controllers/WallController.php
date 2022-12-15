@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class WallController extends Controller
 {
-    public function store()
+    public function store(Request $request)
     {
         // dump(request()->all());
         request()->validate([
@@ -19,7 +19,7 @@ class WallController extends Controller
         $wall->username = request('username');
         $wall->comment = request('comment');
         $wall->save();
-        return redirect('');
+        return compact('wall');
     }
 
     public function show($id)
@@ -27,6 +27,23 @@ class WallController extends Controller
         $wall = Wall::findOrFail($id);
         return view('comment.show',['wall' => $wall]);
     }
+    public function index()
+    {
+        // $wall = Wall::latest()->get();
+        // $userData['data'] = $wall;
+        return view('welcome');
+    }
+
+    //AJAX Show All Data
+
+    public function fetchcomment()
+    {
+        $wall = Wall::latest()->get();
+        $userData['data'] = $wall;
+        return response()->json($userData);
+        // return view('welcome', ['comments' => json_encode($userData)]);
+        // return view('welcome');
+    }   
 
     public function edit($id)
     {

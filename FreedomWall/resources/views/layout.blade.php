@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <meta name="description" content="">
     <meta name="author" content="Devcrud">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title></title>
     <!-- font icons -->
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
@@ -20,6 +21,8 @@
 
 
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+  
 
 
 
@@ -36,10 +39,16 @@
     <script src="assets/vendors/isotope/isotope.pkgd.js"></script>
     
     <!-- Google mpas -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
+    {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script> --}}
 
     <!-- JohnDoe js -->
     <script src="assets/js/johndoe.js"></script>
+
+    <script>
+      
+    </script>
+
+    @yield('addScript')
 
 </body>
 </html>
