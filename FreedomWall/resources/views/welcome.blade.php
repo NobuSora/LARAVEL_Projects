@@ -207,7 +207,7 @@
                         var update = moment(upwall.updated_at).fromNow();
                         var insertData ='\
                                 <div class="row" id="del'+upwall.id+'">\
-                                    <div class="col-md-6 col-lg-4">\
+                                    <div class="col-md-6 col-lg-4">\                                     
                                         <div class="card">\
                                             <div class="card-header">\
                                                 <div class="mt-2">\
