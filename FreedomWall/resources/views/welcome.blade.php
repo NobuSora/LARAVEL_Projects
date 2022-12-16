@@ -11,20 +11,17 @@
                 <div class="card">
                 <div class="card-header">
                         <div class="mt-2">
-                            <h4><input class="input @error('username') is-danger @enderror" type="text" name="username" id="username" placeholder="Username"></h4>
-                            @error('username')
-                            <p class="help is-danger">{{ $errors->first('username')}}</p>
-                            @enderror
+                            <h4 id="headUsername"><input class="input" type="text" name="username" id="inUsername" placeholder="Username"></h4>
+                            {{-- <p class="help is-danger">Field Username is required!</p> --}}
                             <span class="line"></span>  
                         </div>
                     </div>
                     <div class="card-body">
-                        <textarea class="textarea @error('comment') is-danger @enderror" type="textarea" name="comment" id="comment" placeholder="Comment" ></textarea>
-                            @error('comment')
-                            <p class="help is-danger">{{ $errors->first('comment')}}</p>
-                            @enderror
+                        <textarea class="textarea" type="textarea" name="comment" id="inComment" placeholder="Comment" ></textarea>
+                           
                     </div>
                     <button type="button" value="Post" id="addBtn" onclick="return confirm('Confirm Post?')">Add</button>
+                    <button type="button" value="" id="updateBtn">Update</button>
                 </div> 
             </div>
         </div>
@@ -39,6 +36,8 @@
 <script>
     $(document).ready(function () {
         console.log('Second Load Ready');
+
+
         
     });
 </script>
@@ -49,9 +48,11 @@
 
     <script>
         $(document).ready(function () {
-            console.log('First Load Ready');
 
-                            
+            $('#updateBtn').hide();
+
+            
+            console.log('First Load Ready');           
             
             $.extend({
                 getcomments : function(){
@@ -68,24 +69,22 @@
                         if (value.comment==undefined){comment = "No Comment"}else {comment = value.comment}
 
                         insertData +='\
-                            <div class="row" value="'+value.id+'">\
+                            <div class="row" id="del'+value.id+'">\
                                 <div class="col-md-6 col-lg-4">\
-                                <a href="/'+value.id+'">\
                                     <div class="card">\
                                         <div class="card-header">\
                                             <div class="mt-2">\
-                                                <h4>'+value.username+'</h4>\
+                                                <h4 id="Username'+value.id+'">'+value.username+'</h4>\
                                                 <span class="line"></span>\
                                             </div>\
                                         </div>\
                                         <div class="card-body">\
-                                            <p>'+comment+'</p>\
+                                            <p id="Comment'+value.id+'">'+comment+'</p>\
                                         </div>\
                                             <div class="DateClass" id="dateID'+value.id+'">'+date+'</div>\
-                                        </a>\
-                                            <button value="'+value.id+'" id="deleteBtn" class="btn">Delete</a>\
+                                            <button value="'+value.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+value.id+'" class="EditBtn" onclick="$.edit($(this).val());" >Edit</button>\
                                     </div>\
-                                </div><p id="id" hidden>'+value.id+'</p>\
+                                </div>\
                             </div>';
                           
                         });
@@ -97,8 +96,8 @@
                 },
 
                 add : function(){
-                    let username = $('#username').val();
-                    let comment = $('#comment').val();
+                    let username = $('#inUsername').val();
+                    let comment = $('#inComment').val();
                     let id = $('#id').val();
                     $.ajax({ 
                     url: "/store",
@@ -116,7 +115,6 @@
                             var insertData ='\
                                 <div class="row">\
                                     <div class="col-md-6 col-lg-4">\
-                                    <a href="/'+wall.id+'">\
                                         <div class="card">\
                                             <div class="card-header">\
                                                 <div class="mt-2">\
@@ -128,54 +126,138 @@
                                                 <p>'+wall.comment+'</p>\
                                             </div>\
                                                 <div class="DateClass">'+date+'</div>\
+                                                <button value="'+wall.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+wall.id+'" class="EditBtn" onclick="$.edit($(this).val());" >Edit</button>\
                                         </div>\
-                                        </a>\
                                     </div><p id="lastcount"></p>\
-                                </div>'
+                                </div>';
                             $("#Container").prepend(insertData);
+                            $('#inUsername').val('');
+                            $('#inComment').val('');
 
 
                             // console.log(response['wall'].id);
                         },
                         error: function(response) {
-                            alert('Error Addpost'+response);
+                            // console.log($('#headUsername').val().length);
+                            if($('#inUsername').val().length == 0){
+                            alert('Username is Required!');
+                            }
+                            else if ($('#inComment').val().length == 0){
+                            alert('Comment is Required!');
+                            }
+
                         },
                     });
                 },
 
-                delete : function(){
+                deleteID : function(id){
+                    // console.log(delID);
+                    // console.log('Hello');
+                    $.ajax({
+                    type: "POST",
+                    url: "/delete",
+                    data: {"_token": "{{ csrf_token() }}",
+                            id: id},
+                    success: function(response){
+                        var delID = response['delwall'].id;
+                        console.log(response['delwall'].id);
+                        $('#del'+delID).remove();
+                        alert('Deleted Successfully!');
+                    },
+                    error: function(response) {
+                        console.log("Delete Failed");
+                    },
+                    }); 
+                },
 
-                var delID = this.val();
-                // console.log('Hello');
-                // $.ajax({
-                // type: "DELETE",
-                // url: "/",
-                // data: {id: "your_element_id"},
-                // success: function(result){
-                //     // Do something after the element is deleted
-                // },
-                // error: function(response) {
-                //     alert('Error DeletePost'+response);
-                // },
-                // });
+                edit : function(id){
+                       var usernameIn = $('#Username'+id);
+                       var commentIn = $('#Comment'+id);
+                        $('#inUsername').val(usernameIn.text());
+                        $('#inComment').val(commentIn.text());
+                        $('#updateBtn').show();
+                        $('#updateBtn').val(id);
+                        $('#addBtn').hide();
+
+                        // console.log($('#updateBtn').val());
+
+
+                    // console.log(commentIn);
+                },
+
+                update : function(id){
+                    let username = $('#inUsername').val();
+                    let comment = $('#inComment').val();
+                    $('#del'+id).remove();
+                    // console.log("Update Buttons Works");
+                    // console.log(id);
+                    $.ajax({
+                    type: "POST",
+                    url: "/update",
+                    data: {"_token": "{{ csrf_token() }}",
+                            id: id,
+                            username: username,
+                            comment: comment   
+                        },
+                    success: function(response){
+                        // console.log("Update Success");
+                        $('#inUsername').val('');
+                        $('#inComment').val('');
+                        $('#updateBtn').hide();
+                        $('#addBtn').show();
+                        
+                        var upwall = response['upwall'];
+
+                        var update = moment(upwall.updated_at).fromNow();
+                        var insertData ='\
+                                <div class="row">\
+                                    <div class="col-md-6 col-lg-4">\
+                                        <div class="card">\
+                                            <div class="card-header">\
+                                                <div class="mt-2">\
+                                                    <h4>'+upwall.username+'</h4>\
+                                                    <span class="line"></span>\
+                                                </div>\
+                                            </div>\
+                                            <div class="card-body">\
+                                                <p>'+upwall.comment+'</p>\
+                                            </div>\
+                                                <div class="DateClass">'+update+'</div>\
+                                                <button value="'+upwall.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+upwall.id+'" class="EditBtn" onclick="$.edit($(this).val());" >Edit</button>\
+                                        </div>\
+                                    </div><p id="lastcount"></p>\
+                                </div>';
+                            $("#Container").prepend(insertData);
+
+                    },
+                    error: function(response) {
+                        console.log("Update Failed");
+                    },
+                    }); 
+
+
                 }
 
                 
             });
-            
-            $.getcomments();
 
-            
             $("#addBtn").click(function () {
                 $.add();
-                $('#username').val('');
-                $('#comment').val('');
+                
             });
 
-            $('#deleteBtn').click(function (e) { 
+            $("#updateBtn").click(function (e) { 
                 e.preventDefault();
-                console.log("Works");
+                $.update($(this).val());
             });
+
+            // $('')
+            
+            $.getcomments();
+            
+            
+
+            
 
 
         });

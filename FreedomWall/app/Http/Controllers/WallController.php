@@ -46,26 +46,22 @@ class WallController extends Controller
         return view('comment.edit',['wall' => $wall]);
     }
 
-    public function update($id) 
+    public function update(Request $request) 
     {
-        request()->validate([
-            'username' => 'required',
-            'comment' => 'required'
-        ]);
-        $wall = Wall::find($id);
-        $wall->username = request('username');
-        $wall->comment = request('comment');
-        $wall->save();
-        return redirect('/' . $wall->$id);
+        $upwall = Wall::find(request('id'));
+        $upwall->username = request('username');
+        $upwall->comment = request('comment');
+        $upwall->save();
+        return compact('upwall');
 
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $wall = Wall::findOrFail($id);
+        $delwall = Wall::findOrFail(request('id'));
 
-        $wall->delete();
+        $delwall->delete();
 
-        return redirect('../');
+        return compact('delwall');
     }
 }

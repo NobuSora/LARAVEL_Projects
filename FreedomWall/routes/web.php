@@ -23,8 +23,10 @@ Route::get('/','WallController@index');
 Route::get('/getComments','WallController@fetchcomment');
 // Route::get('/getComment','WallController@getComment');
 Route::post('/store', 'WallController@store');
+Route::post('/delete', 'WallController@destroy');
+Route::post('/update', 'WallController@update');
 Route::get('/{comment}/edit', 'WallController@edit');
-Route::delete('/{comment}/delete', 'WallController@destroy');
+
 Route::get('/{comment}', 'WallController@show');
-Route::put('/{comment}', 'WallController@update');
+
 

@@ -46,7 +46,7 @@
     <!-- JohnDoe js -->
     <script src="assets/js/johndoe.js"></script>
     <script src="assets/js/moment.js"></script>
-    @yield('deleteScript')
+    {{-- @yield('deleteScript') --}}
     @yield('addScript')
 
 </body>
