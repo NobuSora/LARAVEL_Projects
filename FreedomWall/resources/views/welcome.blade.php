@@ -48,13 +48,10 @@
 
     <script>
         $(document).ready(function () {
-
-            $('#updateBtn').hide();
-
-            
-            console.log('First Load Ready');           
-            
+            $('#updateBtn').hide();   
+            // console.log('First Load Ready');           
             $.extend({
+                //Get Comments from Database
                 getcomments : function(){
                     $.ajax({
                         url: '/getComments',
@@ -65,7 +62,6 @@
                         $.each(response['comments'], function( index, value ) {
                         var comment = "";
                             var date = moment(value.updated_at).fromNow();
-
                         if (value.comment==undefined){comment = "No Comment"}else {comment = value.comment}
 
                         insertData +='\
@@ -86,15 +82,12 @@
                                     </div>\
                                 </div>\
                             </div>';
-                          
                         });
                         $("#Container").append(insertData);
-                            
-                            // $("#Container").append(insertData);
                         }
                     }); 
                 },
-
+                
                 add : function(){
                     let username = $('#inUsername').val();
                     let comment = $('#inComment').val();
@@ -113,7 +106,7 @@
                             var wall = response['wall'];
                             var date = moment(wall.updated_at).fromNow();
                             var insertData ='\
-                                <div class="row">\
+                                <div class="row" id="del'+wall.id+'">\
                                     <div class="col-md-6 col-lg-4">\
                                         <div class="card">\
                                             <div class="card-header">\
@@ -160,7 +153,7 @@
                             id: id},
                     success: function(response){
                         var delID = response['delwall'].id;
-                        console.log(response['delwall'].id);
+                        // console.log(response['delwall'].id);
                         $('#del'+delID).remove();
                         alert('Deleted Successfully!');
                     },
@@ -200,6 +193,9 @@
                             comment: comment   
                         },
                     success: function(response){
+                        //Test
+
+                        //EndTest
                         // console.log("Update Success");
                         $('#inUsername').val('');
                         $('#inComment').val('');
@@ -210,7 +206,7 @@
 
                         var update = moment(upwall.updated_at).fromNow();
                         var insertData ='\
-                                <div class="row">\
+                                <div class="row" id="del'+upwall.id+'>\
                                     <div class="col-md-6 col-lg-4">\
                                         <div class="card">\
                                             <div class="card-header">\
@@ -254,6 +250,8 @@
             // $('')
             
             $.getcomments();
+
+            
             
             
 

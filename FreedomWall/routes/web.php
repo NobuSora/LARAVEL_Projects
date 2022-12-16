@@ -25,8 +25,5 @@ Route::get('/getComments','WallController@fetchcomment');
 Route::post('/store', 'WallController@store');
 Route::post('/delete', 'WallController@destroy');
 Route::post('/update', 'WallController@update');
-Route::get('/{comment}/edit', 'WallController@edit');
-
-Route::get('/{comment}', 'WallController@show');
 
 

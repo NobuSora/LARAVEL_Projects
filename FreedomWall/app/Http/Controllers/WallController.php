@@ -40,11 +40,6 @@ class WallController extends Controller
         return compact('comments');
     }   
 
-    public function edit($id)
-    {
-        $wall = Wall::find($id);
-        return view('comment.edit',['wall' => $wall]);
-    }
 
     public function update(Request $request) 
     {
