@@ -111,17 +111,17 @@
                                         <div class="card">\
                                             <div class="card-header">\
                                                 <div class="mt-2">\
-                                                    <h4>'+wall.username+'</h4>\
+                                                    <h4 id="Username'+wall.id+'">'+wall.username+'</h4>\
                                                     <span class="line"></span>\
                                                 </div>\
                                             </div>\
                                             <div class="card-body">\
-                                                <p>'+wall.comment+'</p>\
+                                                <p id="Comment'+wall.id+'">'+wall.comment+'</p>\
                                             </div>\
                                                 <div class="DateClass">'+date+'</div>\
                                                 <button value="'+wall.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+wall.id+'" class="EditBtn" onclick="$.edit($(this).val());" >Edit</button>\
                                         </div>\
-                                    </div><p id="lastcount"></p>\
+                                    </div>\
                                 </div>';
                             $("#Container").prepend(insertData);
                             $('#inUsername').val('');
@@ -206,22 +206,22 @@
 
                         var update = moment(upwall.updated_at).fromNow();
                         var insertData ='\
-                                <div class="row" id="del'+upwall.id+'>\
+                                <div class="row" id="del'+upwall.id+'">\
                                     <div class="col-md-6 col-lg-4">\
                                         <div class="card">\
                                             <div class="card-header">\
                                                 <div class="mt-2">\
-                                                    <h4>'+upwall.username+'</h4>\
+                                                    <h4 id="Username'+upwall.id+'">'+upwall.username+'</h4>\
                                                     <span class="line"></span>\
                                                 </div>\
                                             </div>\
                                             <div class="card-body">\
-                                                <p>'+upwall.comment+'</p>\
+                                                <p id="Comment'+upwall.id+'">'+upwall.comment+'</p>\
                                             </div>\
                                                 <div class="DateClass">'+update+'</div>\
                                                 <button value="'+upwall.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+upwall.id+'" class="EditBtn" onclick="$.edit($(this).val());" >Edit</button>\
                                         </div>\
-                                    </div><p id="lastcount"></p>\
+                                    </div>\
                                 </div>';
                             $("#Container").prepend(insertData);
 
