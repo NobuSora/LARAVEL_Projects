@@ -79,7 +79,7 @@
                                             <p id="Comment'+value.id+'">'+comment+'</p>\
                                         </div>\
                                             <div class="DateClass" id="dateID'+value.id+'">'+date+'</div>\
-                                            <button value="'+value.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+value.id+'" class="EditBtn" onclick="$.edit($(this).val());" >Edit</button>\
+                                            <button value="'+value.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+value.id+'" class="EditBtn" onclick="$.edit($(this).val());" id="editBtn" >Edit</button>\
                                     </div>\
                                 </div>\
                             </div>';
@@ -120,7 +120,7 @@
                                                 <p id="Comment'+wall.id+'">'+wall.comment+'</p>\
                                             </div>\
                                                 <div class="DateClass">'+date+'</div>\
-                                                <button value="'+wall.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+wall.id+'" class="EditBtn" onclick="$.edit($(this).val());" >Edit</button>\
+                                                <button value="'+wall.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+wall.id+'" onclick="$.edit($(this).val());" id="editBtn">Edit</button>\
                                         </div>\
                                     </div>\
                                 </div>';
@@ -169,6 +169,7 @@
                 },
 
                 edit : function(id){
+                    
                        var usernameIn = $('#Username'+id);
                        var commentIn = $('#Comment'+id);
                         $('#inUsername').val(usernameIn.text());
@@ -184,6 +185,9 @@
                         //Get all Elements and Disable
                         var all = document.querySelectorAll("#Container select, #Container input, #Container textarea, #Container button");
                         for (let el of all) { el.disabled = true; }
+
+                        //Testing of Alertify
+                    
                 },
 
                 update : function(id){
@@ -205,7 +209,6 @@
                         $('#addBtn').show();
                         $('#fieldComment').remove();
                         $('#fieldUsername').remove();
-
                         alert('Updated Successfully!');
 
                         $('#Container').fadeTo("slow", 1.00, function() 
@@ -234,7 +237,7 @@
                                                 <p id="Comment'+upwall.id+'">'+upwall.comment+'</p>\
                                             </div>\
                                                 <div class="DateClass">'+update+'</div>\
-                                                <button value="'+upwall.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+upwall.id+'" class="EditBtn" onclick="$.edit($(this).val());" >Edit</button>\
+                                                <button value="'+upwall.id+'" class="deleteBtn" onclick="$.deleteID($(this).val());">Delete</button><button value="'+upwall.id+'" onclick="$.edit($(this).val());" >Edit</button>\
                                         </div>\
                                     </div>\
                                 </div>';
