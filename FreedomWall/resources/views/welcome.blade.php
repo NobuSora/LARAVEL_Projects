@@ -5,7 +5,7 @@
 
     <h2 class="mb-1"><span class="text-danger">Freedom</span>Wall</h2>
 
-    <div class="container">
+    <div class="container" id="incontainer">
         <div class="row">
             <div class="col-md-6 col-lg-4">
                 <div class="card">
@@ -171,6 +171,14 @@
                         $('#updateBtn').show();
                         $('#updateBtn').val(id);
                         $('#addBtn').hide();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        $('#Container').fadeTo("slow", 0.15, function() 
+                        {
+                        $('#Container').children().prop('disabled');
+                        });
+
+                        var all = document.querySelectorAll("#Container select, #Container input, #Container textarea, #Container button");
+                        for (let el of all) { el.disabled = true; }
 
                         // console.log($('#updateBtn').val());
 
@@ -201,6 +209,15 @@
                         $('#inComment').val('');
                         $('#updateBtn').hide();
                         $('#addBtn').show();
+
+                        $('#Container').fadeTo("slow", 1.00, function() 
+                        {
+                        $('#Container').children().prop('enabled');
+                        });
+
+                        var all = document.querySelectorAll("#Container select, #Container input, #Container textarea, #Container button");
+                        for (let el of all) { el.disabled = false; }
+                        
                         
                         var upwall = response['upwall'];
 
