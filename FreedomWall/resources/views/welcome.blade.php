@@ -16,8 +16,9 @@
                             <span class="line"></span>  
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="divcomment">
                         <textarea class="textarea" type="textarea" name="comment" id="inComment" placeholder="Comment" ></textarea>
+                        {{-- <p class="help is-danger">Field Comment is required!</p> --}}
                            
                     </div>
                     <button type="button" value="Post" id="addBtn" onclick="return confirm('Confirm Post?')">Add</button>
@@ -126,6 +127,8 @@
                             $("#Container").prepend(insertData);
                             $('#inUsername').val('');
                             $('#inComment').val('');
+                            $('#fieldComment').remove();
+                            $('#fieldUsername').remove();
 
 
                             // console.log(response['wall'].id);
@@ -133,10 +136,12 @@
                         error: function(response) {
                             // console.log($('#headUsername').val().length);
                             if($('#inUsername').val().length == 0){
-                            alert('Username is Required!');
+                                $('#fieldUsername').remove();
+                                $('#headUsername').append('<p class="help is-danger" id="fieldUsername">Field Username is required!</p>');
                             }
                             else if ($('#inComment').val().length == 0){
-                            alert('Comment is Required!');
+                                $('#fieldComment').remove();
+                                $('#divcomment').append('<p class="help is-danger" id="fieldComment">Field Comment is required!</p>');
                             }
 
                         },
@@ -176,22 +181,15 @@
                         {
                         $('#Container').children().prop('disabled');
                         });
-
+                        //Get all Elements and Disable
                         var all = document.querySelectorAll("#Container select, #Container input, #Container textarea, #Container button");
                         for (let el of all) { el.disabled = true; }
-
-                        // console.log($('#updateBtn').val());
-
-
-                    // console.log(commentIn);
                 },
 
                 update : function(id){
                     let username = $('#inUsername').val();
                     let comment = $('#inComment').val();
                     $('#del'+id).remove();
-                    // console.log("Update Buttons Works");
-                    // console.log(id);
                     $.ajax({
                     type: "POST",
                     url: "/update",
@@ -201,20 +199,20 @@
                             comment: comment   
                         },
                     success: function(response){
-                        //Test
-
-                        //EndTest
-                        // console.log("Update Success");
                         $('#inUsername').val('');
                         $('#inComment').val('');
                         $('#updateBtn').hide();
                         $('#addBtn').show();
+                        $('#fieldComment').remove();
+                        $('#fieldUsername').remove();
+
+                        alert('Updated Successfully!');
 
                         $('#Container').fadeTo("slow", 1.00, function() 
                         {
                         $('#Container').children().prop('enabled');
                         });
-
+                        //Get all elements and enable
                         var all = document.querySelectorAll("#Container select, #Container input, #Container textarea, #Container button");
                         for (let el of all) { el.disabled = false; }
                         
@@ -245,6 +243,15 @@
                     },
                     error: function(response) {
                         console.log("Update Failed");
+
+                        if($('#inUsername').val().length == 0){
+                                $('#fieldUsername').remove();
+                                $('#headUsername').append('<p class="help is-danger" id="fieldUsername">Field Username is required!</p>');
+                        }
+                        else if ($('#inComment').val().length == 0){
+                            $('#fieldComment').remove();
+                            $('#divcomment').append('<p class="help is-danger" id="fieldComment">Field Comment is required!</p>');
+                        }
                     },
                     }); 
 
