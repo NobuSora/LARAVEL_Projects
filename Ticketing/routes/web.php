@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Data;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,22 +30,27 @@ Route::post ( '/editItem', function (Request $request) {
             'country' => 'required|regex:/^[\pL\s\-]+$/u',
             'salary' => 'required|regex:/^\d*(\.\d{2})?$/' 
     );
-    $validator = Validator::make ( Input::all (), $rules );
+    $validator = Validator::make ( Request::all (), $rules );
     if ($validator->fails ())
         return Response::json ( array (             
                 'errors' => $validator->getMessageBag ()->toArray () 
         ) );
     else {
         
-        $data = Data::find ( $request->id );
-        $data->first_name = ($request->fname);
-        $data->last_name = ($request->lname);
-        $data->email = ($request->email);
-        $data->gender = ($request->gender);
-        $data->country = ($request->country);
-        $data->salary = ($request->salary);
+        $data = Data::find (request('id'));
+        $data->first_name = (request('fname'));
+        $data->last_name = (request('lname'));
+        $data->email = (request('email'));
+        $data->gender = (request('gender'));
+        $data->country = (request('country'));
+        $data->salary = (request('salary'));
         $data->save ();
         return response ()->json ( $data );
     }
+} );
+
+Route::post ( '/deleteItem', function (Request $request) {
+    Data::find (request('id'))->delete ();
+    return response ()->json ();
 } );
 

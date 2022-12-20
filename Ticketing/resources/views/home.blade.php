@@ -190,63 +190,92 @@ $(document).ready(function() {
     //Update
     $('.modal-footer').on('click', '.edit', function() 
     {
-        console.log('Hello');
-        // $.ajax({
-        //     type: 'post',
-        //     url: '/editItem',
-        //     data: 
-        //     {
-        //         '_token': $('input[name=_token]').val(),
-        //         'id': $("#fid").val(),
-        //         'fname': $('#fname').val(),
-        //         'lname': $('#lname').val(),
-        //         'email': $('#email').val(),
-        //         'gender': $('#gender').val(),
-        //         'country': $('#country').val(),
-        //         'salary': $('#salary').val()
-        //     },
-        //     success: function(data) 
-        //     {
-        //         if (data.errors)
-        //             {
-        //                 $('#myModal').modal('show');
-        //                 if(data.errors.fname) {
-        //                     $('.fname_error').removeClass('hidden');
-        //                     $('.fname_error').text("First name can't be empty !");
-        //                 }
-        //                 if(data.errors.lname) {
-        //                     $('.lname_error').removeClass('hidden');
-        //                     $('.lname_error').text("Last name can't be empty !");
-        //                 }
-        //                 if(data.errors.email) {
-        //                     $('.email_error').removeClass('hidden');
-        //                     $('.email_error').text("Email must be a valid one !");
-        //                 }
-        //                 if(data.errors.country) {
-        //                     $('.country_error').removeClass('hidden');
-        //                     $('.country_error').text("Country must be a valid one !");
-        //                 }
-        //                 if(data.errors.salary) {
-        //                     $('.salary_error').removeClass('hidden');
-        //                     $('.salary_error').text("Salary must be a valid format ! (ex: #.##)");
-        //                 }
-        //             }
-        //         else
-        //             {
-        //                 $('.error').addClass('hidden');
-        //                 $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" +
-        //                 data.id + "</td><td>" + data.first_name +
-        //                 "</td><td>" + data.last_name + "</td><td>" + data.email + "</td><td>" +
-        //                 data.gender + "</td><td>" + data.country + "</td><td>" + data.salary +
-        //                 "</td><td><button class='edit-modal btn btn-info' data-info='" + data.id+","+data.first_name+","+data.last_name+","+data.email+","+data.gender+","+data.country+","+data.salary+"'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-info='" + data.id+","+data.first_name+","+data.last_name+","+data.email+","+data.gender+","+data.country+","+data.salary+"' ><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
-        //             }
-        //     }
-        // });
-
-
-
-
+        // console.log('Hello');
+        $.ajax({
+            type: 'post',
+            url: '/editItem',
+            data: 
+            {
+                '_token': $('input[name=_token]').val(),
+                'id': $("#fid").val(),
+                'fname': $('#fname').val(),
+                'lname': $('#lname').val(),
+                'email': $('#email').val(),
+                'gender': $('#gender').val(),
+                'country': $('#country').val(),
+                'salary': $('#salary').val()
+            },
+            success: function(data) 
+            {
+                if (data.errors)
+                    {
+                        $('#myModal').modal('show');
+                        if(data.errors.fname) {
+                            $('.fname_error').removeClass('hidden');
+                            $('.fname_error').text("First name can't be empty !");
+                        }
+                        if(data.errors.lname) {
+                            $('.lname_error').removeClass('hidden');
+                            $('.lname_error').text("Last name can't be empty !");
+                        }
+                        if(data.errors.email) {
+                            $('.email_error').removeClass('hidden');
+                            $('.email_error').text("Email must be a valid one !");
+                        }
+                        if(data.errors.country) {
+                            $('.country_error').removeClass('hidden');
+                            $('.country_error').text("Country must be a valid one !");
+                        }
+                        if(data.errors.salary) {
+                            $('.salary_error').removeClass('hidden');
+                            $('.salary_error').text("Salary must be a valid format ! (ex: #.##)");
+                        }
+                    }
+                else
+                    {
+                        $('.error').addClass('hidden');
+                        $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" +
+                        data.id + "</td><td>" + data.first_name +
+                        "</td><td>" + data.last_name + "</td><td>" + data.email + "</td><td>" +
+                        data.gender + "</td><td>" + data.country + "</td><td>" + data.salary +
+                        "</td><td><button class='edit-modal btn btn-info' data-info='" + data.id+","+data.first_name+","+data.last_name+","+data.email+","+data.gender+","+data.country+","+data.salary+"'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-info='" + data.id+","+data.first_name+","+data.last_name+","+data.email+","+data.gender+","+data.country+","+data.salary+"' ><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
+                    }
+            }
+        });
     });
+
+    $(document).on('click', '.delete-modal', function() {
+        $('#footer_action_button').text(" Delete");
+        $('#footer_action_button').removeClass('glyphicon-check');
+        $('#footer_action_button').addClass('glyphicon-trash');
+        $('.actionBtn').removeClass('btn-success');
+        $('.actionBtn').addClass('btn-danger');
+        $('.actionBtn').removeClass('edit');
+        $('.actionBtn').addClass('delete');
+        $('.modal-title').text('Delete');
+        $('.deleteContent').show();
+        $('.form-horizontal').hide();
+        var stuff = $(this).data('info').split(',');
+        $('.did').text(stuff[0]);
+        $('.dname').html(stuff[1] +" "+stuff[2]);
+        $('#myModal').modal('show');
+    });
+
+    $('.modal-footer').on('click', '.delete', function() {
+        $.ajax({
+            type: 'post',
+            url: '/deleteItem',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $('.did').text()
+            },
+            success: function(data) {
+                $('.item' + $('.did').text()).remove();
+            }
+        });
+    });
+
+
 } );
 
 
