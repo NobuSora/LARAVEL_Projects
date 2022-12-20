@@ -6209,6 +6209,8 @@ a.close.disabled {
   overflow-y: auto;
 }
 
+.hidden{display:none}
+
 .modal {
   position: fixed;
   top: 0;

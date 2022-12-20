@@ -33,7 +33,8 @@ Route::post ( '/editItem', function (Request $request) {
     $validator = Validator::make ( Request::all (), $rules );
     if ($validator->fails ())
         return Response::json ( array (             
-                'errors' => $validator->getMessageBag ()->toArray () 
+                'errors' => $validator->getMessageBag()->toArray(),
+                'showmodalerror' => "$('#myModal').modal('show');"
         ) );
     else {
         

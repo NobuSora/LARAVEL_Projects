@@ -1,7 +1,4 @@
 @extends('layouts.app')
-
-
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -178,7 +175,7 @@ $(document).ready(function() {
         $('.actionBtn').addClass('btn-success');
         $('.actionBtn').removeClass('btn-danger');
         $('.actionBtn').removeClass('delete');
-        $('.actionBtn').addClass('edit');
+        $('.actionBtn').addClass('update');
         $('.modal-title').text('Edit');
         $('.deleteContent').hide();
         $('.form-horizontal').show();
@@ -188,9 +185,10 @@ $(document).ready(function() {
     });
 
     //Update
-    $('.modal-footer').on('click', '.edit', function() 
+    $('.modal-footer').on('click', '.update', function() 
     {
         // console.log('Hello');
+        // $('#myModal').modal('hide');
         $.ajax({
             type: 'post',
             url: '/editItem',
@@ -207,9 +205,10 @@ $(document).ready(function() {
             },
             success: function(data) 
             {
+                
                 if (data.errors)
                     {
-                        $('#myModal').modal('show');
+                        
                         if(data.errors.fname) {
                             $('.fname_error').removeClass('hidden');
                             $('.fname_error').text("First name can't be empty !");
@@ -230,6 +229,7 @@ $(document).ready(function() {
                             $('.salary_error').removeClass('hidden');
                             $('.salary_error').text("Salary must be a valid format ! (ex: #.##)");
                         }
+                        $('#myModal').modal('show');
                     }
                 else
                     {
@@ -240,6 +240,7 @@ $(document).ready(function() {
                         data.gender + "</td><td>" + data.country + "</td><td>" + data.salary +
                         "</td><td><button class='edit-modal btn btn-info' data-info='" + data.id+","+data.first_name+","+data.last_name+","+data.email+","+data.gender+","+data.country+","+data.salary+"'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-info='" + data.id+","+data.first_name+","+data.last_name+","+data.email+","+data.gender+","+data.country+","+data.salary+"' ><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
                     }
+                
             }
         });
     });
