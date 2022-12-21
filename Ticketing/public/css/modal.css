@@ -1,1 +1,10 @@
 .hidden{display:none}
+
+.ticks{
+    color: rgba(10, 10, 10, 0.911);
+    padding: 10px;
+    display: inline-block;
+    font-size: 1.25rem;
+    border: 10px;
+    border-color: black;
+}

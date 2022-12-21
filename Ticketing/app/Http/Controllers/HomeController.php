@@ -24,9 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->name == 'Bry'){
-            $data = Data::all();
-            return view ('home')->withData($data);
+        if(auth()->user()->level == 2){
+            $data = Data::where('status', 'Open')->get();
+            return view ('admin.open')->withData($data);
         }
         else
         {
