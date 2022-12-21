@@ -24,12 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->level == 2){
+        if(auth()->user()->level == 1){
             $data = Data::where('status', 'Open')->get();
             return view ('admin.open')->withData($data);
         }
         else
         {
+            $data = Data::where('status', 'Open')->get();
             return view('welcome');
         }
 
@@ -40,7 +41,7 @@ class HomeController extends Controller
 
     public function assigned()
     {
-        if(auth()->user()->level == 2){
+        if(auth()->user()->level == 1){
             $data = Data::where('status', 'Pending')->get();
             return view ('admin.assigned')->withData($data);
         }
@@ -56,7 +57,7 @@ class HomeController extends Controller
 
     public function resolved()
     {
-        if(auth()->user()->level == 2){
+        if(auth()->user()->level == 1){
             $data = Data::where('status', 'Approved')->get();
             return view ('admin.resolved')->withData($data);
         }
@@ -72,7 +73,7 @@ class HomeController extends Controller
 
     public function archived()
     {
-        if(auth()->user()->level == 2){
+        if(auth()->user()->level == 1){
             $data = Data::where('status', 'Archived')->get();
             return view ('admin.archived')->withData($data);
         }
