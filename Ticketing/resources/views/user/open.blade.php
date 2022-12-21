@@ -5,6 +5,7 @@
 <li><a class="ticks" href="/assigned">Assigned Tickets</a></li>
 <li><a class="ticks" href="/resolved">Resolved Tickets</a></li>
 <li><a class="ticks" href="/archived">Archived</a></li>
+<li><button type="button" class="Create" data-dismiss="modal">Create Ticket</button></li>
 @endsection
 
 @section('content')
@@ -24,14 +25,14 @@
                         <th class="text-center">Posted On</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tablebody">
                     @foreach($data as $item)
                     <tr class="item{{$item->id}}">
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->id}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->name}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->title}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->status}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->date}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->id}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">You</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->title}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->status}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}</td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -42,7 +43,7 @@
     </div>
 </div>
 
-{{-- Modal --}}
+{{-- View Modal --}}
 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -88,6 +89,55 @@
                         <div class="col-sm-12">
                             <input type="email" class="form-control" id="posted_on" disabled>
                         </div>
+                    </div>                    
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- End View Modal --}}
+
+{{-- Create Modal --}}
+
+<div id="myModalCreate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    {{-- //Created By --}}
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Created By</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="post_created_by" disabled>
+                        </div>
+                    </div>
+                    {{-- //Title --}}
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Title</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="post_title">
+                        </div>
+                    </div>
+                    {{-- //Status --}}
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Status</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="post_status" value="Pending" disabled>
+                        </div>
+                    </div>
+                    {{-- //Created At --}}
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Date</label>
+                        <div class="col-sm-12">
+                            <input type="date" class="form-control" id="post_posted_on">
+                        </div>
                     </div>
 
                     {{-- //Buttons --}}
@@ -107,7 +157,7 @@
     </div>
 </div>
 
-{{-- End Modal --}}
+{{-- End View Modal --}}
 
 <script>
 $(document).ready(function() {
@@ -127,42 +177,55 @@ $(document).ready(function() {
     }
 
 
-    //Edit Button
+    //View Button
     $(document).on('click', '.edit-modal', function() 
     {
-        $('#footer_action_button').text("Get Ticket");
-        $('#footer_action_button').addClass('glyphicon-check');
-        $('#footer_action_button').removeClass('glyphicon-trash');
-        $('.actionBtn').addClass('btn-success');
-        $('.actionBtn').removeClass('btn-danger');
-        $('.actionBtn').addClass('getTicket');
-        $('.modal-title').text('Get Ticket');
-        $('.form-horizontal').show();
         var data = $(this).data('info').split(',');
         fillmodalData(data)
         $('#myModal').modal('show');
     });
 
-    //Update
-    $('.modal-footer').on('click', '.getTicket', function() 
+    //Create Button
+    $(document).on('click', '.Create', function() 
+    {
+        $('#footer_action_button').text("Post Ticket");
+        $('#footer_action_button').addClass('glyphicon-check');
+        $('#footer_action_button').removeClass('glyphicon-trash');
+        $('.actionBtn').addClass('btn-success');
+        $('.actionBtn').removeClass('btn-danger');
+        $('.actionBtn').addClass('postTicket');
+        $('.modal-title').text('Create Ticket');
+        $('.form-horizontal').show();
+        $('#post_created_by').val('{{auth()->user()->name}}');
+        $('#myModalCreate').modal('show');
+    });
+
+    //Post Ticket
+    $('.modal-footer').on('click', '.postTicket', function() 
     {
         $.ajax(
         {
             type: 'post',
-            url: '/admin/editItem',
+            url: '/user/store',
             data: 
             {
                 '_token': $('input[name=_token]').val(),
-                'id': $("#fid").val(),
-                'name': $('#created_by').val(),
-                'title': $('#title').val(),
-                'status': 'Pending',
-                'date': $('#posted_on').val(),
+                'name': $('#post_created_by').val(),
+                'title': $('#post_title').val(),
+                'status': 'Open',
+                'date': $('#post_posted_on').val(),
 
             },
             success: function(data) 
-            {
-                $('.item' + data.id).remove();
+            {   
+                var addData = '\
+                        <td class="edit-modal" data-info="'+data.id+',You,'+data.title+','+data.status+','+data.created_at+'">'+data.id+'</td>\
+                        <td class="edit-modal" data-info="'+data.id+',You,'+data.title+','+data.status+','+data.created_at+'">You</td>\
+                        <td class="edit-modal" data-info="'+data.id+',You,'+data.title+','+data.status+','+data.created_at+'">'+data.title+'</td>\
+                        <td class="edit-modal" data-info="'+data.id+',You,'+data.title+','+data.status+','+data.created_at+'">'+data.status+'</td>\
+                        <td class="edit-modal" data-info="'+data.id+',You,'+data.title+','+data.status+','+data.created_at+'">'+data.created_at+'</td>\
+                        ';
+                $('#tablebody').prepend(addData);
             }
                 
         });

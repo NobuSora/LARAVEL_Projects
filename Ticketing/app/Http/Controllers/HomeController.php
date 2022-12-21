@@ -30,8 +30,9 @@ class HomeController extends Controller
         }
         else
         {
-            $data = Data::where('status', 'Open')->get();
-            return view('welcome');
+            $name = auth()->user()->name;
+            $data = Data::where('status', 'Open')->where('name',$name)->get();
+            return view ('user.open')->withData($data);
         }
 
 

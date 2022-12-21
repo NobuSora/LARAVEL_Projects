@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Data;
-use Illuminate\Http\Response;
 
 class AdminController extends Controller
 {
@@ -25,11 +24,4 @@ class AdminController extends Controller
             $data->save ();
             return response ()->json ($data);
     }
-
-    public function delete(Request $request)
-    {
-        Data::find (request('id'))->delete ();
-        return response ()->json ();
-    }
-
 }
