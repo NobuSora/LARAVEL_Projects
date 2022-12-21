@@ -37,4 +37,52 @@ class HomeController extends Controller
         // dd(auth()->user()->name);
         
     }
+
+    public function assigned()
+    {
+        if(auth()->user()->level == 2){
+            $data = Data::where('status', 'Pending')->get();
+            return view ('admin.assigned')->withData($data);
+        }
+        else
+        {
+            return view('welcome');
+        }
+
+
+        // dd(auth()->user()->name);
+        
+    }
+
+    public function resolved()
+    {
+        if(auth()->user()->level == 2){
+            $data = Data::where('status', 'Approved')->get();
+            return view ('admin.resolved')->withData($data);
+        }
+        else
+        {
+            return view('welcome');
+        }
+
+
+        // dd(auth()->user()->name);
+        
+    }
+
+    public function archived()
+    {
+        if(auth()->user()->level == 2){
+            $data = Data::where('status', 'Archived')->get();
+            return view ('admin.archived')->withData($data);
+        }
+        else
+        {
+            return view('welcome');
+        }
+
+
+        // dd(auth()->user()->name);
+        
+    }
 }

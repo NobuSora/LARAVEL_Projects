@@ -19,9 +19,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/assigned', 'HomeController@assigned');
+Route::get('/resolved', 'HomeController@resolved');
+Route::get('/archived', 'HomeController@archived');
+
 
 ////Admin Routes
 //Update
 Route::post ( '/admin/editItem', 'AdminController@edit');
-//Delete 
-Route::post ( '/admin/deleteItem', 'AdminController@delete');

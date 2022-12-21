@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('nav')
-<li><a class="ticks active" href="/home">Open Tickets</a></li>
-<li><a class="ticks" href="/assigned">Assigned Tickets</a></li>
+<li><a class="ticks" href="/home">Open Tickets</a></li>
+<li><a class="ticks active" href="/assigned">Assigned Tickets</a></li>
 <li><a class="ticks" href="/resolved">Resolved Tickets</a></li>
 <li><a class="ticks" href="/archived">Archived</a></li>
 @endsection
@@ -11,6 +11,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-auto">
+
 
             {{-- DataTable View  --}}
             <div class="table-responsive text-center">
@@ -130,13 +131,13 @@ $(document).ready(function() {
     //Edit Button
     $(document).on('click', '.edit-modal', function() 
     {
-        $('#footer_action_button').text("Get Ticket");
+        $('#footer_action_button').text("Approved");
         $('#footer_action_button').addClass('glyphicon-check');
         $('#footer_action_button').removeClass('glyphicon-trash');
         $('.actionBtn').addClass('btn-success');
         $('.actionBtn').removeClass('btn-danger');
-        $('.actionBtn').addClass('getTicket');
-        $('.modal-title').text('Get Ticket');
+        $('.actionBtn').addClass('approved');
+        $('.modal-title').text('Approval');
         $('.form-horizontal').show();
         var data = $(this).data('info').split(',');
         fillmodalData(data)
@@ -144,7 +145,7 @@ $(document).ready(function() {
     });
 
     //Update
-    $('.modal-footer').on('click', '.getTicket', function() 
+    $('.modal-footer').on('click', '.approved', function() 
     {
         $.ajax(
         {
@@ -156,7 +157,7 @@ $(document).ready(function() {
                 'id': $("#fid").val(),
                 'name': $('#created_by').val(),
                 'title': $('#title').val(),
-                'status': 'Pending',
+                'status': 'Approved',
                 'date': $('#posted_on').val(),
 
             },
