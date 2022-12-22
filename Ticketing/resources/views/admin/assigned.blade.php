@@ -90,6 +90,13 @@
                             <input type="email" class="form-control" id="posted_on" disabled>
                         </div>
                     </div>
+                    {{-- //Remarks --}}
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Remarks</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="remarks">
+                        </div>
+                    </div>
 
                     {{-- //Buttons --}}
                     <div class="modal-footer">
@@ -159,6 +166,7 @@ $(document).ready(function() {
                 'title': $('#title').val(),
                 'status': 'Approved',
                 'date': $('#posted_on').val(),
+                'remarks': $('#remarks').val(),
 
             },
             success: function(data) 

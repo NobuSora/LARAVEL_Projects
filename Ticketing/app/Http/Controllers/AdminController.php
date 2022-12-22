@@ -21,7 +21,8 @@ class AdminController extends Controller
             $data->title = (request('title'));
             $data->status = (request('status'));
             $data->date = (request('date'));
-            $data->save ();
+            $data->remarks = (request('remarks'));
+            $data->save();
             return response ()->json ($data);
     }
 }

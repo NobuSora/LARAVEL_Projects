@@ -19,6 +19,7 @@ class DatatablesData extends Migration
             $table->string('title');
             $table->string('status');
             $table->string('date');
+            $table->string('remarks');
             $table->timestamps();
  
         });

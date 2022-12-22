@@ -26,6 +26,7 @@ class UserController extends Controller
             $data->title = (request('title'));
             $data->status = (request('status'));
             $data->date = (request('date'));
+            $data->remarks = (request('remarks'));
             $data->save ();
             return response ()->json ($data);
     }

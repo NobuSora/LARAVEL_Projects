@@ -32,11 +32,11 @@
                 <tbody id="tablebody">
                     @foreach($data as $item)
                     <tr class="item{{$item->id}}">
-                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->id}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">You</td>
-                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->title}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->status}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}}">{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}},{{$item->remarks}}">{{$item->id}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}},{{$item->remarks}}">You</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}},{{$item->remarks}}">{{$item->title}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}},{{$item->remarks}}">{{$item->status}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},You,{{$item->title}},{{$item->status}},{{$item->created_at}},{{$item->remarks}}">{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}</td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -85,6 +85,13 @@
                         <label class="control-label col-sm-2">Status</label>
                         <div class="col-sm-12">
                             <input type="email" class="form-control" id="status" disabled>
+                        </div>
+                    </div>
+                    {{-- //Remarks --}}
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Remarks</label>
+                        <div class="col-sm-12">
+                            <input type="email" class="form-control" id="remarks" disabled>
                         </div>
                     </div>
                     {{-- //Created At --}}
@@ -185,6 +192,7 @@ $(document).ready(function() {
     $('#title').val(data[2]);
     $('#status').val(data[3]);
     $('#posted_on').val(data[4]);
+    $('#remarks').val(data[5]);
     }
 
 
