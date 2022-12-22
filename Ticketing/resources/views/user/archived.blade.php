@@ -195,7 +195,6 @@ $(document).ready(function() {
     $('#remarks').val(data[5]);
     }
 
-
     //View Button
     $(document).on('click', '.edit-modal', function() 
     {
@@ -226,7 +225,6 @@ $(document).ready(function() {
                 'title': $('#title').val(),
                 'status': 'Open',
                 'date': $('#posted_on').val()
-
             },
             success: function(data) 
             {
@@ -235,7 +233,6 @@ $(document).ready(function() {
                 
         });
     });
-
     //Create Button
     $(document).on('click', '.Create', function() 
     {

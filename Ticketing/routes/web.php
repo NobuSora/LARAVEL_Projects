@@ -27,5 +27,8 @@ Route::get('/archived', 'HomeController@archived');
 ////Admin Routes
 //Update
 Route::post ( '/admin/editItem', 'AdminController@edit');
+////User Routes
+//Store
 Route::post ( '/user/store', 'UserController@store');
+//Update
 Route::post ( '/user/editItem', 'UserController@edit');

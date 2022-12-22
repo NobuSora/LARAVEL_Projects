@@ -12,7 +12,6 @@
     <div class="row justify-content-center">
         <div class="col-md-auto">
 
-
             {{-- DataTable View  --}}
             <div class="table-responsive text-center">
                 <table class="table table-borderless" id="table">
@@ -37,8 +36,8 @@
                     @endforeach
                     </tbody>
             </table>
-
             {{-- End DataTables View --}}
+
         </div>
     </div>
 </div>
@@ -97,7 +96,6 @@
                             <input type="email" class="form-control" id="remarks" disabled>
                         </div>
                     </div>
-
                     {{-- //Buttons --}}
                     <div class="modal-footer">
                         <button type="button" class="btn actionBtn" data-dismiss="modal">
@@ -135,7 +133,6 @@ $(document).ready(function() {
     $('#remarks').val(data[5]);
     }
 
-
     //Edit Button
     $(document).on('click', '.edit-modal', function() 
     {
@@ -166,7 +163,6 @@ $(document).ready(function() {
                 'title': $('#title').val(),
                 'status': 'Open',
                 'date': $('#posted_on').val(),
-
             },
             success: function(data) 
             {

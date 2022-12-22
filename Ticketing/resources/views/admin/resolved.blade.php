@@ -12,7 +12,6 @@
     <div class="row justify-content-center">
         <div class="col-md-auto">
 
-
             {{-- DataTable View  --}}
             <div class="table-responsive text-center">
                 <table class="table table-borderless" id="table">
@@ -37,8 +36,8 @@
                     @endforeach
                     </tbody>
             </table>
-
             {{-- End DataTables View --}}
+            
         </div>
     </div>
 </div>

@@ -33,11 +33,7 @@ class HomeController extends Controller
             $name = auth()->user()->name;
             $data = Data::where('status', 'Open')->where('name',$name)->get();
             return view ('user.open')->withData($data);
-        }
-
-
-        // dd(auth()->user()->name);
-        
+        }   
     }
 
     public function assigned()
@@ -52,10 +48,6 @@ class HomeController extends Controller
             $data = Data::where('status', 'Pending')->where('name',$name)->get();
             return view ('user.assigned')->withData($data);
         }
-
-
-        // dd(auth()->user()->name);
-        
     }
 
     public function resolved()
@@ -70,10 +62,6 @@ class HomeController extends Controller
             $data = Data::where('status', 'Approved')->where('name',$name)->get();
             return view ('user.resolved')->withData($data);
         }
-
-
-        // dd(auth()->user()->name);
-        
     }
 
     public function archived()
@@ -88,9 +76,5 @@ class HomeController extends Controller
             $data = Data::where('status', 'Archived')->where('name',$name)->get();
             return view ('user.archived')->withData($data);
         }
-
-
-        // dd(auth()->user()->name);
-        
     }
 }

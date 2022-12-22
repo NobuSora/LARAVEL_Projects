@@ -12,7 +12,6 @@
     <div class="row justify-content-center">
         <div class="col-md-auto">
 
-
             {{-- DataTable View  --}}
             <div class="table-responsive text-center">
                 <table class="table table-borderless" id="table">
@@ -44,7 +43,6 @@
 </div>
 
 {{-- Modal --}}
-
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -97,7 +95,6 @@
                             <input type="text" class="form-control" id="remarks">
                         </div>
                     </div>
-
                     {{-- //Buttons --}}
                     <div class="modal-footer">
                         <button type="button" class="btn actionBtn" data-dismiss="modal">
@@ -114,7 +111,6 @@
         </div>
     </div>
 </div>
-
 {{-- End Modal --}}
 
 <script>
@@ -133,7 +129,6 @@ $(document).ready(function() {
     $('#status').val(data[3]);
     $('#posted_on').val(data[4]);
     }
-
 
     //Edit Button
     $(document).on('click', '.edit-modal', function() 
@@ -167,7 +162,6 @@ $(document).ready(function() {
                 'status': 'Approved',
                 'date': $('#posted_on').val(),
                 'remarks': $('#remarks').val(),
-
             },
             success: function(data) 
             {
