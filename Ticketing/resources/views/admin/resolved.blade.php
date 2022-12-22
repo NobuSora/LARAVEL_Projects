@@ -28,11 +28,11 @@
                 <tbody>
                     @foreach($data as $item)
                     <tr class="item{{$item->id}}">
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->id}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->name}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->title}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->status}}</td>
-                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->date}}">{{$item->date}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->id}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->name}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->title}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->created_at}}">{{$item->status}}</td>
+                        <td class="edit-modal" data-info="{{$item->id}},{{$item->name}},{{$item->title}},{{$item->status}},{{$item->created_at}}">{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}</td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -152,7 +152,7 @@ $(document).ready(function() {
             url: '/admin/editItem',
             data: 
             {
-                '_token': $('input[name=_token]').val(),
+                '_token': '{{ csrf_token() }}',
                 'id': $("#fid").val(),
                 'name': $('#created_by').val(),
                 'title': $('#title').val(),

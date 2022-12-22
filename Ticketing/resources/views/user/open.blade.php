@@ -49,16 +49,16 @@
 
 {{-- View Modal --}}
 
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModalview" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"></h4>
+                <h4 class="viewmodal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form">
+                <form class="viewform-horizontal" role="form">
                     {{-- //ID --}}
                     <div class="form-group">
                         <label class="control-label col-sm-2">ID</label>
@@ -93,7 +93,15 @@
                         <div class="col-sm-12">
                             <input type="email" class="form-control" id="posted_on" disabled>
                         </div>
-                    </div>                    
+                    </div>
+                    <div class="viewmodal-footer">
+                        <button type="button" class="btn viewactionBtn" data-dismiss="modal">
+                            <span id="viewfooter_action_button" class='glyphicon'></span>
+                        </button>
+                        <button type="button" class="btn viewbtn-warning" data-dismiss="modal">
+                            <span class='glyphicon glyphicon-remove'></span> Close
+                        </button>
+                    </div>                  
                 </form>
                 
             </div>
@@ -126,7 +134,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">Title</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="post_title">
+                            <input type="text" class="form-control" id="post_title" required>
                         </div>
                     </div>
                     {{-- //Status --}}
@@ -140,7 +148,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3">Date</label>
                         <div class="col-sm-12">
-                            <input type="date" class="form-control" id="post_posted_on">
+                            <input type="date" class="form-control" id="post_posted_on" required>
                         </div>
                     </div>
 
@@ -161,7 +169,6 @@
     </div>
 </div>
 
-{{-- End View Modal --}}
 
 <script>
 $(document).ready(function() {
@@ -184,9 +191,41 @@ $(document).ready(function() {
     //View Button
     $(document).on('click', '.edit-modal', function() 
     {
+        $('#viewfooter_action_button').text("Cancel Ticket");
+        $('#viewfooter_action_button').addClass('glyphicon-check');
+        $('#viewfooter_action_button').removeClass('glyphicon-trash');
+        $('.viewactionBtn').addClass('btn-success');
+        $('.viewactionBtn').removeClass('btn-danger');
+        $('.viewactionBtn').addClass('cancelTicket');
+        $('.viewmodal-title').text('Cancel Ticket?');
+        $('.viewform-horizontal').show();
         var data = $(this).data('info').split(',');
         fillmodalData(data)
-        $('#myModal').modal('show');
+        $('#myModalview').modal('show');
+    });
+    //Cancel Button
+    $('.viewmodal-footer').on('click', '.cancelTicket', function() 
+    {
+        $.ajax(
+        {
+            type: 'post',
+            url: '/user/editItem',
+            data: 
+            {
+                '_token': '{{ csrf_token() }}',
+                'id': $("#fid").val(),
+                'name': '{{auth()->user()->name}}',
+                'title': $('#title').val(),
+                'status': 'Archived',
+                'date': $('#posted_on').val()
+
+            },
+            success: function(data) 
+            {
+                $('.item' + data.id).remove();
+            }
+                
+        });
     });
 
     //Create Button
@@ -213,7 +252,7 @@ $(document).ready(function() {
             url: '/user/store',
             data: 
             {
-                '_token': $('input[name=_token]').val(),
+                '_token': '{{ csrf_token() }}',
                 'name': $('#post_created_by').val(),
                 'title': $('#post_title').val(),
                 'status': 'Open',

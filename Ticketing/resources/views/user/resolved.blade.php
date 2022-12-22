@@ -123,7 +123,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">Title</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="post_title">
+                            <input type="text" class="form-control" id="post_title" required>
                         </div>
                     </div>
                     {{-- //Status --}}
@@ -137,7 +137,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3">Date</label>
                         <div class="col-sm-12">
-                            <input type="date" class="form-control" id="post_posted_on">
+                            <input type="date" class="form-control" id="post_posted_on" required>
                         </div>
                     </div>
 
@@ -210,7 +210,7 @@ $(document).ready(function() {
             url: '/user/store',
             data: 
             {
-                '_token': $('input[name=_token]').val(),
+                '_token': '{{ csrf_token() }}',
                 'name': $('#post_created_by').val(),
                 'title': $('#post_title').val(),
                 'status': 'Open',

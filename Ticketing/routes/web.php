@@ -28,3 +28,4 @@ Route::get('/archived', 'HomeController@archived');
 //Update
 Route::post ( '/admin/editItem', 'AdminController@edit');
 Route::post ( '/user/store', 'UserController@store');
+Route::post ( '/user/editItem', 'UserController@edit');
