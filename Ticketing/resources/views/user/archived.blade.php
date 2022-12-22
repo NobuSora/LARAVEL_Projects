@@ -217,8 +217,9 @@ $(document).ready(function() {
                 'date': $('#post_posted_on').val(),
 
             },
-            success: function(data) 
+            success: function(response) 
             {   
+                var data = response['sendData'][0];
                 var addData = '\
                         <td class="edit-modal" data-info="'+data.id+',You,'+data.title+','+data.status+','+data.created_at+'">'+data.id+'</td>\
                         <td class="edit-modal" data-info="'+data.id+',You,'+data.title+','+data.status+','+data.created_at+'">You</td>\
