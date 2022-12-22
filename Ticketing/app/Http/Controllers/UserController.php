@@ -15,7 +15,7 @@ class UserController extends Controller
         $data->status = (request('status'));
         $data->date = (request('date'));
         $data->save ();
-        $sendData = Data::where('status', 'Open')->where('title',request('title'))->get();
-        return compact('sendData');
+        $sendData = Data::latest()->where('status', 'Open')->where('title',request('title'))->get();
+        return with(compact('sendData'));
     }
 }
