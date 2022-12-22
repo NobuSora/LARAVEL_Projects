@@ -1,16 +1,13 @@
 @extends('layouts.app')
 
 @section('nav')
-<li><a class="ticks active" href="/home">Open Tickets</a></li>
+<li><a class="ticks" href="/home">Open Tickets</a></li>
 <li><a class="ticks" href="/assigned">Assigned Tickets</a></li>
-<li><a class="ticks" href="/resolved">Resolved Tickets</a></li>
+<li><a class="ticks active" href="/resolved">Resolved Tickets</a></li>
 <li><a class="ticks" href="/archived">Archived</a></li>
 @endsection
 
 @section('content')
-
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-auto">

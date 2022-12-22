@@ -48,7 +48,9 @@ class HomeController extends Controller
         }
         else
         {
-            return view('welcome');
+            $name = auth()->user()->name;
+            $data = Data::where('status', 'Pending')->where('name',$name)->get();
+            return view ('user.assigned')->withData($data);
         }
 
 
@@ -64,7 +66,9 @@ class HomeController extends Controller
         }
         else
         {
-            return view('welcome');
+            $name = auth()->user()->name;
+            $data = Data::where('status', 'Approved')->where('name',$name)->get();
+            return view ('user.resolved')->withData($data);
         }
 
 
@@ -80,7 +84,9 @@ class HomeController extends Controller
         }
         else
         {
-            return view('welcome');
+            $name = auth()->user()->name;
+            $data = Data::where('status', 'Archived')->where('name',$name)->get();
+            return view ('user.archived')->withData($data);
         }
 
 

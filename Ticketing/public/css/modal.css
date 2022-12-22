@@ -29,3 +29,18 @@
     border-radius: 15px;
     background-color: aqua;
 }
+.createBtn{
+    margin-top: 10px;
+    font-weight: bold;
+    border-radius: 10px;
+    border-color: beige;
+    background-color: beige;
+    box-shadow: 0px 0px 5px 2px;
+}
+.createBtn:hover{
+    font-weight: bold;
+    border-radius: 5px;
+    border-color: beige;
+    background-color: beige;
+    box-shadow: 0px 0px 5px 5px;
+}

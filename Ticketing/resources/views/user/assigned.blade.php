@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('nav')
-<li><a class="ticks active" href="/home">Open Tickets</a></li>
-<li><a class="ticks" href="/assigned">Assigned Tickets</a></li>
+<li><a class="ticks" href="/home">Open Tickets</a></li>
+<li><a class="ticks active" href="/assigned">Assigned Tickets</a></li>
 <li><a class="ticks" href="/resolved">Resolved Tickets</a></li>
 <li><a class="ticks" href="/archived">Archived</a></li>
 @endsection
