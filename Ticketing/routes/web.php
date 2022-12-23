@@ -12,9 +12,7 @@
 */
 use App\Data;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
@@ -32,3 +30,10 @@ Route::post ( '/admin/editItem', 'AdminController@edit');
 Route::post ( '/user/store', 'UserController@store');
 //Update
 Route::post ( '/user/editItem', 'UserController@edit');
+
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/{NOTTODAY}', function () {
+    return view('welcome');
+});
