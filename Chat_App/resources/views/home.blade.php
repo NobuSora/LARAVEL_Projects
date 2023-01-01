@@ -38,7 +38,7 @@
 
         chatInput.keypress(function (e) { 
             let message = $(this).val();
-            console.log(message);
+            // console.log(message);
             if(e.which === 13 && !e.shiftKey){
                 // alert('Success');
                 socket.emit('sendChatToServer', message);

@@ -10,14 +10,14 @@ io.on('connection', (socket)=>{
   console.log('Connected');
 
 socket.on('sendChatToServer', (message) =>{
-  console.log(message);
+  // console.log(message);
 
   // io.sockets.emit('sendChatToClient', (message));
   socket.broadcast.emit('sendChatToClient',(message));
 });
 
 socket.on('disconnect', (socket)=>{
-  console.log("Disconnected");
+  // console.log("Disconnected");
 });
 });
 
