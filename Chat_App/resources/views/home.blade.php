@@ -27,6 +27,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         let ip_address = '127.0.0.1';
