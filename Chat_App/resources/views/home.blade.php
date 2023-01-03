@@ -9,8 +9,6 @@
         <!-- User List -->
         <div class="col-md-2">
         Bryan Hernandez<br>
-        Bryan Hernandez<br>
-        Bryan Hernandez<br>
         </div>
         <div class="col-md-8">
             <div class="card">
